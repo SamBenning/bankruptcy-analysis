@@ -1,0 +1,392 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<h1>Predictive Model</h1>
+
+<form method="POST">
+    <div class="form-group">
+        <label for="ROA(C)">ROA(C) before interest and depreciation before interest</label>
+        <input type="number" class="form-control" id="ROA(C)" name="B" placeholder="ROA(C)">
+    </div>
+    <div class="form-group">
+        <label for="ROA(A)">ROA(A) before interest and % after tax</label>
+        <input type="number" class="form-control" id="ROA(A)" name="C" placeholder="ROA(A)">
+    </div>
+    <div class="form-group">
+        <label for="ROA(B)">ROA(B) before interest and depreciation after tax</label>
+        <input type="number" class="form-control" id="ROA(B)" name="D" placeholder="ROA(B)">
+    </div>
+    <div class="form-group">
+        <label for="operating_gross_margin">Operating Gross Margin</label>
+        <input type="number" class="form-control" id="operating_gross_margin" name ="E">
+    </div>
+    <div class="form-group">
+        <label for="realized_sales_gross_margin">Realized Sales Gross Margin</label>
+        <input type="number" class="form-control" id="realized_sales_gross_margin" name="F">
+    </div>
+    <div class="form-group">
+        <label for="operating_profit_rate">Operating Profit Rate</label>
+        <input type="number" class="form-control" id="operating_profit_rate" name="G">
+    </div>
+    <div class="form-group">
+        <label for="pretax_net_interest_rate">Pre-tax net Interest Rate</label>
+        <input type="number" class="form-control" id="pretax_net_interest_rate" name="H">
+    </div>
+    <div class="form-group">
+        <label for="aftertax_net_interest_rate">After-tax net Interest Rate</label>
+        <input type="number" class="form-control" id="aftertax_net_interest_rate" name="I">
+    </div>
+    <div class="form-group">
+        <label for="nonindustry_income_and_expenditure">Non-industry income and expenditure/revenue</label>
+        <input type="number" class="form-control" id="nonindustry_income_and_expenditure" name="J">
+    </div>
+    <div class="form-group">
+        <label for="continuous_interest_rate">Continuous interest rate (after tax)</label>
+        <input type="number" class="form-control" id="continuous_interest_rate" name="K">
+    </div>
+    <div class="form-group">
+        <label for="operating_expense_rate">Operating Expense Rate</label>
+        <input type="number" class="form-control" id="operating_expense_rate" name="L">
+    </div>
+    <div class="form-group">
+        <label for="rnd_expense_rate">Research and development expense rate</label>
+        <input type="number" class="form-control" id="rnd_expense_rate" name="M">
+    </div>
+    <div class="form-group">
+        <label for="cash_flow_rate">Cash flow rate</label>
+        <input type="number" class="form-control" id="cash_flow_rate" name="N">
+    </div>
+    <div class="form-group">
+        <label for="interest_debt_rate">Interest-bearing debt interest rate</label>
+        <input type="number" class="form-control" id="interest_debt_rate" name="O">
+    </div>
+    <div class="form-group">
+        <label for="tax_rate_a">Tax rate (A)</label>
+        <input type="number" class="form-control" id="tax_rate_a" name="P">
+    </div>
+    <div class="form-group">
+        <label for="net_value_per_share_b">Net Value Per Share (B)</label>
+        <input type="number" class="form-control" id="net_value_per_share_b" name="Q">
+    </div>
+    <div class="form-group">
+        <label for="net_value_per_share_a">Net Value Per Share (A)</label>
+        <input type="number" class="form-control" id="net_value_per_share_a" name="R">
+    </div>
+    <div class="form-group">
+        <label for="net_value_per_share_c">Net Value Per Share (C)</label>
+        <input type="number" class="form-control" id="net_value_per_share_c" name="S">
+    </div>
+    <div class="form-group">
+        <label for="persistent_eps">Persistent EPS in the Last Four Seasons</label>
+        <input type="number" class="form-control" id="persistent_eps" name="T">
+    </div>
+    <div class="form-group">
+        <label for="cash_flow_per_share">Cash Flow Per Share</label>
+        <input type="number" class="form-control" id="cash_flow_per_share" name="U">
+    </div>
+    <div class="form-group">
+        <label for="revenue_per_share">Revenue Per Share</label>
+        <input type="number" class="form-control" id="revenue_per_share" name="V">
+    </div>
+    <div class="form-group">
+        <label for="operating_profit_per_share">Operating Profit Per Share</label>
+        <input type="number" class="form-control" id="operating_profit_per_share" name="W">
+    </div>
+    <div class="form-group">
+        <label for="per_share_net_profit_beforetax">Per Share Net profit before tax</label>
+        <input type="number" class="form-control" id="per_share_net_profit_beforetax" name="X">
+    </div>
+    <div class="form-group">
+        <label for="realized_sales_gross_profit_growth_rate">Realized Sales Gross Profit Growth Rate</label>
+        <input type="number" class="form-control" id="realized_sales_gross_profit_growth_rate" name="Y">
+    </div>
+    <div class="form-group">
+        <label for="operating_profit_growth_rate">Operating Profit Growth Rate</label>
+        <input type="number" class="form-control" id="operating_profit_growth_rate" name="Z">
+    </div>
+    <div class="form-group">
+        <label for="aftertax_net_profit_growth_rate">After-tax Net Profit Growth Rate</label>
+        <input type="number" class="form-control" id="aftertax_net_profit_growth_rate" name="AA">
+    </div>
+    <div class="form-group">
+        <label for="regular_net_profit_growth_rate">Regular Net Profit Growth Rate</label>
+        <input type="number" class="form-control" id="regular_net_profit_growth_rate" name="AB">
+    </div>
+    <div class="form-group">
+        <label for="continuous_net_profit_growth_rate">Continuous Net Profit Growth Rate</label>
+        <input type="number" class="form-control" id="continuous_net_profit_growth_rate" name="AC">
+    </div>
+    <div class="form-group">
+        <label for="total_asset_growth_rate">Total Asset Growth Rate</label>
+        <input type="number" class="form-control" id="total_asset_growth_rate" name="AD">
+    </div>
+    <div class="form-group">
+        <label for="net_value_growth_rate">Net Value Growth Rate</label>
+        <input type="number" class="form-control" id="net_value_growth_rate" name="AE">
+    </div>
+    <div class="form-group">
+        <label for="total_asset_return_growth_rate_ratio">Total Asset Return Growth Rate Ratio</label>
+        <input type="number" class="form-control" id="total_asset_return_growth_rate_ratio" name="AF">
+    </div>
+    <div class="form-group">
+        <label for="cash_reinvestment_%">Cash Reinvestment %</label>
+        <input type="number" class="form-control" id="cash_reinvestment_%" name="AG">
+    </div>
+    <div class="form-group">
+        <label for="current_ratio">Current Ratio</label>
+        <input type="number" class="form-control" id="current_ratio" name="AH">
+    </div>
+    <div class="form-group">
+        <label for="quick_ratio">Quick Ratio</label>
+        <input type="number" class="form-control" id="quick_ratio" name="AI">
+    </div>
+    <div class="form-group">
+        <label for="interest_expense_ratio">Interest Expense Ratio</label>
+        <input type="number" class="form-control" id="interest_expense_ratio" name="AJ">
+    </div>
+    <div class="form-group">
+        <label for="total_debt_total_net_worth">Total debt/Total net worth</label>
+        <input type="number" class="form-control" id="total_debt_total_net_worth" name="AK">
+    </div>
+    <div class="form-group">
+        <label for="debt_ratio_%">Debt ratio %</label>
+        <input type="number" class="form-control" id="debt_ratio_%" name="AL">
+    </div>
+    <div class="form-group">
+        <label for="net_worth_assets">Net worth/Assets</label>
+        <input type="number" class="form-control" id="net_worth_assets" name="AM">
+    </div>
+    <div class="form-group">
+        <label for="long_term_fund_suitability_ratio">Long-term fund suitability ratio(A)</label>
+        <input type="number" class="form-control" id="long_term_fund_suitability_ratio" name="AN">
+    </div>
+    <div class="form-group">
+        <label for="borrowing_dependency">Borrowing dependency</label>
+        <input type="number" class="form-control" id="borrowing_dependency" name="AO">
+    </div>
+    <div class="form-group">
+        <label for="contingent_liabilities_net_worth">Contingent liabilities/Net worth</label>
+        <input type="number" class="form-control" id="contingent_liabilities_net_worth" name="AP">
+    </div>
+    <div class="form-group">
+        <label for="operating_profit_paidin_capital">Operating profit/Paid-in capital</label>
+        <input type="number" class="form-control" id="operating_profit_paidin_capital" name="AQ">
+    </div>
+    <div class="form-group">
+        <label for="net_profit_before_tax_paidin_capital">Net profit before tax/Paid-in capital</label>
+        <input type="number" class="form-control" id="net_profit_before_tax_paidin_capital" name="AR">
+    </div>
+    <div class="form-group">
+        <label for="inventory_accounts_receivable_net_value">Inventory and accounts receivable/Net value</label>
+        <input type="number" class="form-control" id="inventory_accounts_receivable_net_value" name="AS">
+    </div>
+    <div class="form-group">
+        <label for="total_asset_turnover">Total Asset Turnover</label>
+        <input type="number" class="form-control" id="total_asset_turnover" name="AT">
+    </div>
+    <div class="form-group">
+        <label for="accounts_receivable_turnover">Accounts Receivable Turnover</label>
+        <input type="number" class="form-control" id="accounts_receivable_turnover" name="AU">
+    </div>
+    <div class="form-group">
+        <label for="average_collection_days">Average Collection Days</label>
+        <input type="number" class="form-control" id="average_collection_days" name="AV">
+    </div>
+    <div class="form-group">
+        <label for="inventory_turnover_rate_times">Inventory Turnover Rate (times)</label>
+        <input type="number" class="form-control" id="inventory_turnover_rate_times" name="AW">
+    </div>
+    <div class="form-group">
+        <label for="fixed_assets_turnover_frequency">Fixed Assets Turnover Frequency</label>
+        <input type="number" class="form-control" id="fixed_assets_turnover_frequency" name="AX">
+    </div>
+    <div class="form-group">
+        <label for="net_worth_turnover_rate_times">Net Worth Turnover Rate (times)</label>
+        <input type="number" class="form-control" id="net_worth_turnover_rate_times" name="AY">
+    </div>
+    <div class="form-group">
+        <label for="revenue_per_person">Revenue per person</label>
+        <input type="number" class="form-control" id="revenue_per_person" name="AZ">
+    </div>
+    <div class="form-group">
+        <label for="operating_profit_per_person">Operating profit per person</label>
+        <input type="number" class="form-control" id="operating_profit_per_person" name="BA">
+    </div>
+    <div class="form-group">
+        <label for="allocation_rate_per_person">Allocation rate per person</label>
+        <input type="number" class="form-control" id="allocation_rate_per_person" name="BB">
+    </div>
+    <div class="form-group">
+        <label for="working_capital_to_total_assets">Working Capital to Total Assets</label>
+        <input type="number" class="form-control" id="working_capital_to_total_assets" name="BC">
+    </div>
+    <div class="form-group">
+        <label for="quick_assets_total_assets">Quick Assets/Total Assets</label>
+        <input type="number" class="form-control" id="quick_assets_total_assets" name="BD">
+    </div>
+    <div class="form-group">
+        <label for="current_assets_total_assets">Current Assets/Total Assets</label>
+        <input type="number" class="form-control" id="current_assets_total_assets" name="BE">
+    </div>
+    <div class="form-group">
+        <label for="cash_total_assets">Cash/Total Assets</label>
+        <input type="number" class="form-control" id="cash_total_assets" name="BF">
+    </div>
+    <div class="form-group">
+        <label for="quick_assets_current_liability">Quick Assets/Current Liability</label>
+        <input type="number" class="form-control" id="quick_assets_current_liability" name="BG">
+    </div>
+    <div class="form-group">
+        <label for="cash_current_liability">Cash/Current Liability</label>
+        <input type="number" class="form-control" id="cash_current_liability" name="BH">
+    </div>
+    <div class="form-group">
+        <label for="current_liability_to_assets">Current Liability to Assets</label>
+        <input type="number" class="form-control" id="current_liability_to_assets" name="BI">
+    </div>
+    <div class="form-group">
+        <label for="operating_funds_to_liability">Operating Funds to Liability</label>
+        <input type="number" class="form-control" id="operating_funds_to_liability" name="BJ">
+    </div>
+    <div class="form-group">
+        <label for="inventory_working_capital">Inventory/Working Capital</label>
+        <input type="number" class="form-control" id="inventory_working_capital" name="BK">
+    </div>
+    <div class="form-group">
+        <label for="inventory_current_liability">Inventory/Current Liability</label>
+        <input type="number" class="form-control" id="inventory_current_liability" name="BL">
+    </div>
+    <div class="form-group">
+        <label for="current_liabilities_liability">Current Liabilities/Liability</label>
+        <input type="number" class="form-control" id="current_liabilities_liability" name="BM">
+    </div>
+    <div class="form-group">
+        <label for="working_capital_equity">Working Capital/Equity</label>
+        <input type="number" class="form-control" id="working_capital_equity" name="BN">
+    </div>
+    <div class="form-group">
+        <label for="current_liabilities_equity">Current Liabilities/Equity</label>
+        <input type="number" class="form-control" id="current_liabilities_equity" nam="BO">
+    </div>
+    <div class="form-group">
+        <label for="longterm_liability_to_current_assets">Long-term Liability to Current Assets</label>
+        <input type="number" class="form-control" id="longterm_liability_to_current_assets" name="BP">
+    </div>
+    <div class="form-group">
+        <label for="retained_earnings_to_total_assets">Retained Earnings to Total Assets</label>
+        <input type="number" class="form-control" id="retained_earnings_to_total_assets" name="BQ">
+    </div>
+    <div class="form-group">
+        <label for="total_income_total_expense">Total income/Total expense</label>
+        <input type="number" class="form-control" id="total_income_total_expense" name="BR">
+    </div>
+    <div class="form-group">
+        <label for="total_expense_assets">Total expense/Assets</label>
+        <input type="number" class="form-control" id="total_expense_assets" name="BS">
+    </div>
+    <div class="form-group">
+        <label for="current_asset_turnover_rate">Current Asset Turnover Rate</label>
+        <input type="number" class="form-control" id="current_asset_turnover_rate" name="BT">
+    </div>
+    <div class="form-group">
+        <label for="quick_asset_turnover_rate">Quick Asset Turnover Rate</label>
+        <input type="number" class="form-control" id="quick_asset_turnover_rate" name="BU">
+    </div>
+    <div class="form-group">
+        <label for="working_capital_turnover_rate">Working Capital Turnover Rate</label>
+        <input type="number" class="form-control" id="working_capital_turnover_rate" name="BV">
+    </div>
+    <div class="form-group">
+        <label for="cash_turnover_rate">Cash Turnover Rate</label>
+        <input type="number" class="form-control" id="cash_turnover_rate" name="BW">
+    </div>
+    <div class="form-group">
+        <label for="cash_flow_to_sales">Cash Flow to Sales</label>
+        <input type="number" class="form-control" id="cash_flow_to_sales" name="BX">
+    </div>
+    <div class="form-group">
+        <label for="fixed_assets_to_assets">Fixed Assets to Assets</label>
+        <input type="number" class="form-control" id="fixed_assets_to_assets" name="BY">
+    </div>
+    <div class="form-group">
+        <label for="current_liability_to_liability">Current Liability to Liability</label>
+        <input type="number" class="form-control" id="current_liability_to_liability" name="BZ">
+    </div>
+    <div class="form-group">
+        <label for="current_liability_to_equity">Current Liability to Equity</label>
+        <input type="number" class="form-control" id="current_liability_to_equity" name="CA">
+    </div>
+    <div class="form-group">
+        <label for="equity_to_longterm_liability">Equity to Long-term Liability</label>
+        <input type="number" class="form-control" id="equity_to_longterm_liability" name="CB">
+    </div>
+    <div class="form-group">
+        <label for="cash_flow_to_total_assets">Cash Flow to Total Assets</label>
+        <input type="number" class="form-control" id="cash_flow_to_total_assets" name="CC">
+    </div>
+    <div class="form-group">
+        <label for="cash_flow_to_liability">Cash Flow to Liability</label>
+        <input type="number" class="form-control" id="cash_flow_to_liability" name="CD">
+    </div>
+    <div class="form-group">
+        <label for="cfo_to_assets">CFO to Assets</label>
+        <input type="number" class="form-control" id="cfo_to_assets" name="CE">
+    </div>
+    <div class="form-group">
+        <label for="cash_flow_to_equity">Cash Flow to Equity</label>
+        <input type="number" class="form-control" id="cash_flow_to_equity" name="CF">
+    </div>
+    <div class="form-group">
+        <label for="current_liability_to_current_assets">Current Liability to Current Assets</label>
+        <input type="number" class="form-control" id="current_liability_to_current_assets" name="CG">
+    </div>
+    <div class="form-group">
+        <label for="liability_assets_flag">Liability-Assets Flag</label>
+        <input type="number" class="form-control" id="liability_assets_flag" name="CH">
+    </div>
+    <div class="form-group">
+        <label for="net_income_to_total_assets">Net Income to Total Assets</label>
+        <input type="number" class="form-control" id="net_income_to_total_assets" name="CI">
+    </div>
+    <div class="form-group">
+        <label for="total_assets_to_gnp_price">Total Assets to GNP price</label>
+        <input type="number" class="form-control" id="total_assets_to_gnp_price" name="CJ">
+    </div>
+    <div class="form-group">
+        <label for="no_credit_interval">No-credit Interval</label>
+        <input type="number" class="form-control" id="no_credit_interval" name="CK">
+    </div>
+    <div class="form-group">
+        <label for="gross_profit_to_sales">Gross Profit to Sales</label>
+        <input type="number" class="form-control" id="gross_profit_to_sales" name="CL">
+    </div>
+    <div class="form-group">
+        <label for="net_income_to_stockholders_equity">Net Income to Stockholder's Equity</label>
+        <input type="number" class="form-control" id="net_income_to_stockholders_equity" name="CM">
+    </div>
+    <div class="form-group">
+        <label for="liability_to_equity">Liability to Equity</label>
+        <input type="number" class="form-control" id="liability_to_equity" name="CN">
+    </div>
+    <div class="form-group">
+        <label for="degree_of_financial_leverage">Degree of Financial Leverage</label>
+        <input type="number" class="form-control" id="degree_of_financial_leverage" name="CO">
+    </div>
+    <div class="form-group">
+        <label for="interest_coverage_ratio">Interest Coverage Ratio (Interest expense to EBIT)</label>
+        <input type="number" class="form-control" id="interest_coverage_ratio" name="CP">
+    </div>
+    <div class="form-group">
+        <label for="net_income_flag">Net Income Flag</label>
+        <input type="number" class="form-control" id="net_income_flag" name="CQ">
+    </div>
+    <div class="form-group">
+        <label for="equity_to_liability">Equity to Liability</label>
+        <input type="number" class="form-control" id="equity_to_liability" name="CR">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{% endblock %}
