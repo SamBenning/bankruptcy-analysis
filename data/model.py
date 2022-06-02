@@ -8,9 +8,23 @@ import json
 import sys
 
 np.set_printoptions(threshold=sys.maxsize)
+
 HERE = Path(__file__).parent
 
-model = pickle.load(open(HERE / 'bankruptcy_model_new_random.sav', 'rb'))
 X_test = pickle.load(open(HERE / 'model_test_X_data.sav', 'rb'))
 
-print(X_test)
+class Model:
+    def __init__(self, input_values):
+        self.input_values = input_values
+
+        
+        model = pickle.load(open(HERE / 'bankruptcy_model_new_random.sav', 'rb'))
+
+        self.model = model
+
+    def predict(self):
+        size = len(self.input_values)
+        reshaped = self.input_values.reshape(1,size)
+        print(reshaped)
+        print(size)
+        return self.model.predict(reshaped)

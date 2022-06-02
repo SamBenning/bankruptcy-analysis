@@ -1,6 +1,9 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect, url_for
 import base64
 from io import BytesIO
+import pandas as pd
+import numpy as np
+from . import model
 
 from matplotlib.figure import Figure
 
@@ -24,103 +27,41 @@ def home():
 def enter_info():
 
     if request.method == "POST":
-        b = request.form.get("B")
-        c = request.form.get("C")
-        d = request.form.get("D")
-        e = request.form.get("E")
-        f = request.form.get("F")
-        g = request.form.get("G")
-        h = request.form.get("H")
-        i = request.form.get("I")
-        j = request.form.get("J")
-        k = request.form.get("K")
-        l = request.form.get("L")
-        m = request.form.get("M")
-        n = request.form.get("N")
-        o = request.form.get("O")
-        p = request.form.get("P")
-        q = request.form.get("Q")
-        r = request.form.get("R")
-        s = request.form.get("S")
-        t = request.form.get("T")
-        u = request.form.get("U")
-        v = request.form.get("V")
-        w = request.form.get("W")
-        x = request.form.get("X")
-        y = request.form.get("Y")
-        z = request.form.get("Z")
-        aa = request.form.get("AA")
-        ab = request.form.get("AB")
-        ac = request.form.get("AC")
-        ad = request.form.get("AD")
-        ae = request.form.get("AE")
-        af = request.form.get("AF")
-        ag = request.form.get("AG")
-        ah = request.form.get("AH")
-        ai = request.form.get("AI")
-        aj = request.form.get("AJ")
-        ak = request.form.get("AK")
-        al = request.form.get("AL")
-        am = request.form.get("AM")
-        an = request.form.get("AN")
-        ao = request.form.get("AO")
-        ap = request.form.get("AP")
-        aq = request.form.get("AQ")
-        ar = request.form.get("AR")
-        ass = request.form.get("AS")
-        at = request.form.get("AT")
-        au = request.form.get("AU")
-        av = request.form.get("AV")
-        aw = request.form.get("AW")
-        ax = request.form.get("AX")
-        ay = request.form.get("AY")
-        az = request.form.get("AZ")
-        ba = request.form.get("BA")
-        bb = request.form.get("BB")
-        bc = request.form.get("BC")
-        bd = request.form.get("BD")
-        be = request.form.get("BE")
-        bf = request.form.get("BF")
-        bg = request.form.get("BG")
-        bh = request.form.get("BH")
-        bi = request.form.get("BI")
-        bj = request.form.get("BJ")
-        bk = request.form.get("BK")
-        bl = request.form.get("BL")
-        bm = request.form.get("BM")
-        bn = request.form.get("BN")
-        bo = request.form.get("BO")
-        bp = request.form.get("BP")
-        bq = request.form.get("BQ")
-        br = request.form.get("BR")
-        bs = request.form.get("BS")
-        bt = request.form.get("BT")
-        bu = request.form.get("BU")
-        bv = request.form.get("BV")
-        bw = request.form.get("BW")
-        bx = request.form.get("BX")
-        by = request.form.get("BY")
-        bz = request.form.get("BZ")
-        ca = request.form.get("CA")
-        cb = request.form.get("CB")
-        cc = request.form.get("CC")
-        cd = request.form.get("CD")
-        ce = request.form.get("CE")
-        cf = request.form.get("CF")
-        cg = request.form.get("CG")
-        ch = request.form.get("CH")
-        ci = request.form.get("CI")
-        cj = request.form.get("CJ")
-        ck = request.form.get("CK")
-        cl = request.form.get("CL")
-        cm = request.form.get("CM")
-        cn = request.form.get("CN")
-        co = request.form.get("CO")
-        cp = request.form.get("CP")
-        cq = request.form.get("CQ")
-        cr = request.form.get("CR")
-     
-        return "ROA(C) = " + str(b)
+
+        input_values = []
+        form = request.form
+
+        for item_key in form:
+            item_value = form.get(item_key)
+            if item_value:
+                input_values.append(float(item_value))
+            else:
+                input_values.append(None)
+
+        print("INPUT VALUE SIZE: " + str(len(input_values)))
+
+        return redirect(url_for('views.results', input_values=input_values))
+
+    return render_template('predict.html')
+
+@views.route('/results/<input_values>')
+def results(input_values):
 
 
-    return render_template("predict.html")
+    input_values = input_values[1:len(input_values)-1]
+    input_values = input_values.split(',')
+    for k, value in enumerate(input_values):
+        value = value.strip()
+        if value == 'None':
+            value = -1
+        else:
+            value = float(value)
+        input_values[k] = value
+
+    ndarray = np.array(input_values)
+    print(ndarray.shape)
+
+    my_model = model.Model(ndarray)
+    print(my_model.predict())
+
+    return render_template("results.html", input_values=input_values)
