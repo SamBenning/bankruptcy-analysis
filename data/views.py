@@ -65,6 +65,6 @@ def results(input_values):
     print(ndarray.shape)
 
     my_model = model.Model(ndarray)
-    result = my_model.predict()
+    result = my_model.predict()[0]
 
     return render_template("results.html", input_values=input_values, result=result)
