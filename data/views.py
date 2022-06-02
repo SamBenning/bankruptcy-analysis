@@ -40,6 +40,7 @@ def enter_info():
 
         print("INPUT VALUE SIZE: " + str(len(input_values)))
 
+        # return(str(len(input_values)))
         return redirect(url_for('views.results', input_values=input_values))
 
     return render_template('predict.html')
@@ -50,6 +51,7 @@ def results(input_values):
 
     input_values = input_values[1:len(input_values)-1]
     input_values = input_values.split(',')
+    input_values.insert(0, '1')
     for k, value in enumerate(input_values):
         value = value.strip()
         if value == 'None':
@@ -58,10 +60,11 @@ def results(input_values):
             value = float(value)
         input_values[k] = value
 
+    print(len(input_values))
     ndarray = np.array(input_values)
     print(ndarray.shape)
 
     my_model = model.Model(ndarray)
-    print(my_model.predict())
+    result = my_model.predict()
 
-    return render_template("results.html", input_values=input_values)
+    return render_template("results.html", input_values=input_values, result=result)
