@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+
+
+<h1>Predictive Model</h1>
+<p>Please fill out as much information below as possible.</p>
+<p>Unfilled fields will be automatically filled with average values from the training dataset. The more
+    data you enter, the better.
+</p>
+<hr class="my-4">
+
+<div id="formContainer">
+    <script>
+        createForm(data)
+    </script>
+</div>
+
+
+{% endblock %}
