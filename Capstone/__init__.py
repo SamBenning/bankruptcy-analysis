@@ -16,5 +16,8 @@ def init_app():
 
         app.register_blueprint(views, url_prefix='/')
 
+        from .plotlydash.dashboard import create_dashboard
+        app = create_dashboard(app)
+
         return app
 
