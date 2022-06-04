@@ -3,13 +3,6 @@ function createForm(data) {
     const form = document.createElement("form")
     form.method = "POST"
 
-
-
-    // const testElement = document.createElement("p")
-    // testElement.innerHTML = "This is a test"
-
-
-
     for(const prop in data) {
         
         let label = document.createElement('label')
@@ -33,6 +26,11 @@ function createForm(data) {
         fillWithMeanBtn.innerHTML = "Fill With Mean Value"
         fillWithMeanBtn.className = "btn btn-secondary"
         fillWithMeanBtn.type = "button"
+
+        const fillWithMedianBtn = document.createElement("button")
+        fillWithMedianBtn.innerHTML = "Fill With Median Value"
+        fillWithMedianBtn.className = "btn btn-secondary"
+        fillWithMedianBtn.type = "button"
         
 
         div.className = "form-group"
@@ -41,11 +39,16 @@ function createForm(data) {
         div.appendChild(input)
         div.appendChild(buttonDiv)
         buttonDiv.appendChild(fillWithMeanBtn)
+        buttonDiv.appendChild(fillWithMedianBtn)
 
         form.appendChild(div)
 
         fillWithMeanBtn.addEventListener("click", (e) => {
             input.value = data[input.id]["column_mean"];
+        })
+
+        fillWithMedianBtn.addEventListener("click", (e) => {
+            input.value = data[input.id]["column_median"]
         })
     }
 
@@ -117,6 +120,4 @@ function createForm(data) {
     formContainer.appendChild(fillWithMinBtn)
     formContainer.appendChild(fillWithMaxBtn)
     formContainer.appendChild(form)
-
 }
-

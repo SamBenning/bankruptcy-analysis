@@ -4,8 +4,20 @@ def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = "sam"
 
-    from .views import views
+from flask import Flask
+from .views import views
 
-    app.register_blueprint(views, url_prefix='/')
 
-    return app
+def init_app():
+    app = Flask(__name__, instance_relative_config=False)
+    app.config.from_object('config.Config')
+    with app.app_context():
+        from . import views
+
+        app.register_blueprint(views, url_prefix='/')
+
+        from .plotlydash.dashboard import create_dashboard
+        app = create_dashboard(app)
+
+        return app
+
