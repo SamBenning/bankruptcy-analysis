@@ -1,4 +1,5 @@
 from flask import Flask, Blueprint, render_template, request, redirect, url_for
+from flask_login import login_required, current_user
 import base64
 from io import BytesIO
 import pandas as pd
@@ -11,27 +12,17 @@ views = Blueprint('views', __name__)
 app = Flask(__name__)
 
 @views.route('/')
+@login_required
 def home():
-    # # Generate the figure **without using pyplot**
-    # fig = Figure()
-    # ax = fig.subplots()
-    # ax.plot([1,2])
-    # # Save it to a temporary buffer
-    # buf = BytesIO()
-    # fig.savefig(buf, format="png")
-    # # Embed the result in the html output
-    # data = base64.b64encode(buf.getbuffer()).decode("ascii")
-    # return f"<img src='data:image/png;base64,{data}'/>"
-    return render_template("home.html")
+    return render_template("home.html", user=current_user)
 
 
 
 @views.route('/enter-info', methods=["GET", "POST"])
+@login_required
 def enter_info():
 
     if request.method == "POST":
-
-        
         input_values = []
         form = request.form
         print(form)
@@ -47,9 +38,10 @@ def enter_info():
         # return(str(len(input_values)))
         return redirect(url_for('views.results', input_values=input_values))
 
-    return render_template('predict.html')
+    return render_template('predict.html', user=current_user)
 
 @views.route('/results/<input_values>')
+@login_required
 def results(input_values):
 
     print(input_values)
@@ -70,4 +62,4 @@ def results(input_values):
     my_model = model.Model(ndarray)
     result = my_model.predict()[0]
 
-    return render_template("results.html", input_values=input_values, result=result)
+    return render_template("results.html", input_values=input_values, result=result, user=current_user)

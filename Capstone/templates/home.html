@@ -4,14 +4,24 @@
 {% block content %}
 
 <h1 align="center">Bankruptcy Analysis Tool</h1>
-<h2 align="center">Dashboard</h2>
-<ul class="list-group list-group-flush" id="notes">
+<h2 align="center">About</h2>
+<div class="card card-body">
+    <p>
+        This web app provides tools to help you assess the bankruptcy risk of your business.
+        Harnessing the power of machine learning, the Predict tool analyzes 95 different business
+        parameters and returns a value indicating your bankruptcy risk. In development of the machine
+        learning model, we were able to achieve an accuracy rating of 94.79% in predicting bankruptcy
+        status on data that was not used during the training phase.
+    </p>
+    <p>
+        Through the Data Dash, this app also provides several useful data visualizations based on the
+        data set used to develop the machine learning model. Using the Data Dash in addition to the
+        machine learning prediction algorithm can help you gain valuable insights into the health of
+        your business financials.
+    </p>
+</div>
 
-    <li class="list-group-item">
-        Test item one
-    </li>
 
-</ul>
 
 
 {% endblock %}
