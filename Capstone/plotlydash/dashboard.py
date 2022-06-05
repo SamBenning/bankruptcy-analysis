@@ -13,6 +13,7 @@ import dash_bootstrap_components as dbc
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 import plotly.express as px
+import plotly.figure_factory as ff
 
 from .data import Figures
 from .layout import html_layout
@@ -41,6 +42,13 @@ def create_dashboard(server):
         ),
         dcc.Dropdown(
             id='data_selector',
+            clearable=False
+        ),
+        dcc.Graph(
+            id='distplot'
+        ),
+        dcc.Dropdown(
+            id='distplot-selector',
             clearable=False
         )
     ])
@@ -91,6 +99,8 @@ def init_callbacks(dash_app):
         fig.update_layout(title_text="Mapping feature data points to ML model prediction values")
         return fig
 
+    ## Callbacks for setting up the selectable grouped bar graph. Works very similarly to the
+    ## how the scatter plot is set up.
     @dash_app.callback(
         Output('grouped-bar-selector', 'options'),
         Input('grouped-bar-selector', 'options')
@@ -113,17 +123,11 @@ def init_callbacks(dash_app):
     )
     def display_grouped_bar(value):
         df = figs.df
-        if not value:
-            pass
-
         df = df[value]
         grouped_df = df.groupby(['Bankrupt?']).mean()
         labels = grouped_df.columns.tolist()
         bankrupt_means = grouped_df.iloc[1].tolist()
         not_bankrupt_means = grouped_df.iloc[0].tolist()
-        print(labels)
-        print(bankrupt_means)
-
         fig = go.Figure(data=[
              go.Bar(
                 name="Not Bankrupt",
@@ -137,7 +141,41 @@ def init_callbacks(dash_app):
             )
            
         ])
-
         fig.update_layout(height = 500, title_text="Comparing mean values for bankrupt vs non-bankrupt across features")
+        return fig
+    
+    ## Callbacks for setting up the distribution plot
+    @dash_app.callback(
+        Output('distplot-selector', 'options'),
+        Input('distplot-selector', 'options')
+    )
+    def update_distplot_dropdown(options):
+        df = figs.df_test
+        columns=df.columns
+        return [{'label' :k, 'value' :k} for k in columns]
 
+    @dash_app.callback(
+        Output('distplot-selector', 'value'),
+        Input('distplot-selector', 'options')
+    )
+    def update_distplot_dropdown(value):
+        return ' ROA(C) before interest and depreciation before interest'
+
+    @dash_app.callback(
+        Output('distplot', 'figure'),
+        Input('distplot-selector', 'value')
+    )
+    def display_distplot(value):
+        df = figs.df
+        print(df[value])
+        fig = px.histogram(
+            df,
+            x=df[value],
+            labels={
+                "sum of y": "Value counts"
+            }
+        )
+
+        fig.update_layout(title_text="Analysing value distributions for each feature")
+        
         return fig
