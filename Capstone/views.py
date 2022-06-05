@@ -3,10 +3,8 @@ import base64
 from io import BytesIO
 import pandas as pd
 import numpy as np
-from . import model
-import jyserver.Flask as jsf
+from Capstone import model
 
-from matplotlib.figure import Figure
 
 views = Blueprint('views', __name__)
 
