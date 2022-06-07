@@ -106,7 +106,7 @@ def init_callbacks(dash_app):
         Input('grouped-bar-selector', 'options')
     )
     def update_bar_dropdown(options):
-        df = figs.df_test
+        df = figs.df
         columns=df.columns
         return [{'label' :k, 'value' :k} for k in columns]
 
@@ -115,7 +115,7 @@ def init_callbacks(dash_app):
         Input('grouped-bar-selector', 'options')
     )
     def update_bar_dropdown(options):
-        return [options[k]['value'] for k in range(10)]
+        return [options[k]['value'] for k in range(6)]
 
     @dash_app.callback(
         Output('grouped-bar', 'figure'),
