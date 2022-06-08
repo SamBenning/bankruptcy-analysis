@@ -14,8 +14,8 @@ def create_dataframe(filename):
 class Figures:
 
     def __init__(self):
-        self.df = create_dataframe('data.csv')
-        self.df_test = create_dataframe('test_data_with_preds.csv')
+        self.df = create_dataframe('data_cleaned.csv')
+        self.df_test = create_dataframe('X_test_preds.csv')
 
     def create_grouped_bar(self):
         my_df = self.df

@@ -18,7 +18,7 @@ class Model:
         self.input_values = input_values
 
         
-        model = pickle.load(open(HERE / 'bankruptcy_model_new_random.sav', 'rb'))
+        model = pickle.load(open(HERE / 'RF_model.sav', 'rb'))
 
         self.model = model
 
