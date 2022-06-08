@@ -52,6 +52,25 @@ function createForm(data) {
         })
     }
 
+    const overwriteDiv = document.createElement("div")
+    overwriteDiv.class = "form-check"
+
+    const overwriteExistingValues = document.createElement("input")
+    overwriteExistingValues.type = "checkbox"
+    overwriteExistingValues.id = "overwriteExisting"
+    overwriteExistingValues.className = "form-check-input"
+
+    const overwriteExistingValuesLabel = document.createElement("label")
+    overwriteExistingValues.for = "overwriteExisting"
+    overwriteExistingValuesLabel.innerHTML = "Over-write existing values"
+    overwriteExistingValuesLabel.className = "form-check-label"
+
+    overwriteDiv.appendChild(overwriteExistingValues)
+    overwriteDiv.appendChild(overwriteExistingValuesLabel)
+
+    overwriteDiv.style.padding = '30px'
+    
+
     const fillWithMeanBtn = document.createElement("button")
     fillWithMeanBtn.innerHTML = "Fill All With Mean Values"
     fillWithMeanBtn.className = "btn btn-primary"
@@ -60,7 +79,7 @@ function createForm(data) {
     fillWithMeanBtn.addEventListener("click", () => {
         const fields = document.querySelectorAll(".form-control")
         for(const field of fields) {
-            if(field.value === '') {
+            if(field.value === '' || document.getElementById("overwriteExisting").checked) {
                 mean = data[field.id]["column_mean"]
                 field.value = mean
             }
@@ -80,7 +99,7 @@ function createForm(data) {
     fillWithMeadianBtn.addEventListener("click", () => {
         const fields = document.querySelectorAll(".form-control")
         for(const field of fields) {
-            if(field.value === '') {
+            if(field.value === '' || document.getElementById("overwriteExisting").checked) {
                 median = data[field.id]["column_median"]
                 field.value = median
             }
@@ -94,7 +113,7 @@ function createForm(data) {
     fillWithMinBtn.addEventListener("click", () => {
         const fields = document.querySelectorAll(".form-control")
         for(const field of fields) {
-            if (field.value === '') {
+            if (field.value === '' || document.getElementById("overwriteExisting").checked) {
                 min = data[field.id]["column_min"]
                 field.value = min
             }
@@ -108,7 +127,7 @@ function createForm(data) {
     fillWithMaxBtn.addEventListener("click", () => {
         const fields = document.querySelectorAll(".form-control")
         for(const field of fields) {
-            if (field.value === '') {
+            if (field.value === '' || document.getElementById("overwriteExisting").checked) {
                 max = data[field.id]["column_max"]
                 field.value = max
             }
@@ -122,7 +141,7 @@ function createForm(data) {
     fillWithRandBtn.addEventListener("click", () => {
         const fields = document.querySelectorAll(".form-control")
         for(const field of fields) {
-            if(field.value === '') {
+            if(field.value === '' || document.getElementById("overwriteExisting").checked) {
                 max = data[field.id]["column_max"]
                 min = data[field.id]["column_min"]
                 field.value = Math.random() * (max - min) + min;
@@ -142,5 +161,6 @@ function createForm(data) {
     buttonDiv.appendChild(fillWithMinBtn)
     buttonDiv.appendChild(fillWithRandBtn)
     formContainer.appendChild(buttonDiv)
+    formContainer.appendChild(overwriteDiv)
     formContainer.appendChild(form)
 }
