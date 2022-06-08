@@ -67,6 +67,12 @@ function createForm(data) {
         }
     })
 
+    const buttonDiv = document.createElement("div")
+    buttonDiv.className = "btn-group"
+    buttonDiv.role = "group"
+
+
+
     const fillWithMeadianBtn = document.createElement("button")
     fillWithMeadianBtn.innerHTML = "Fill All With Median Values"
     fillWithMeadianBtn.className = "btn btn-primary"
@@ -109,15 +115,32 @@ function createForm(data) {
         }
     })
 
+    const fillWithRandBtn = document.createElement("button")
+    fillWithRandBtn.innerHTML = "Fill All With Random Values"
+    fillWithRandBtn.className = "btn btn-primary"
+
+    fillWithRandBtn.addEventListener("click", () => {
+        const fields = document.querySelectorAll(".form-control")
+        for(const field of fields) {
+            if(field.value === '') {
+                max = data[field.id]["column_max"]
+                min = data[field.id]["column_min"]
+                field.value = Math.random() * (max - min) + min;
+            }
+        }
+    })
+
     const submitBtn = document.createElement("button")
     submitBtn.type = "submit"
     submitBtn.className = "btn btn-primary"
     submitBtn.innerHTML = "Make Prediction"
     form.appendChild(submitBtn)
 
-    formContainer.appendChild(fillWithMeanBtn)
-    formContainer.appendChild(fillWithMeadianBtn)
-    formContainer.appendChild(fillWithMinBtn)
-    formContainer.appendChild(fillWithMaxBtn)
+    buttonDiv.appendChild(fillWithMeanBtn)
+    buttonDiv.appendChild(fillWithMeadianBtn)
+    buttonDiv.appendChild(fillWithMaxBtn)
+    buttonDiv.appendChild(fillWithMinBtn)
+    buttonDiv.appendChild(fillWithRandBtn)
+    formContainer.appendChild(buttonDiv)
     formContainer.appendChild(form)
 }
